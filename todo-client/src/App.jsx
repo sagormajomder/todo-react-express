@@ -1,6 +1,7 @@
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import AddTask from './Components/AddTask';
 import TaskList from './Components/TaskList';
-import { v4 as uuidv4 } from 'uuid';
 
 const tasks = [
   {
@@ -14,11 +15,16 @@ const tasks = [
 ];
 
 function App() {
+  const [taskList, setTaskList] = useState(tasks);
+
+  const handleAddTask = function (newTask) {
+    setTaskList(t => [...t, newTask]);
+  };
   return (
     <div className='min-h-screen bg-slate-200 flex justify-center items-center'>
       <div className='p-8 basis-full'>
-        <AddTask />
-        <TaskList tasks={tasks} />
+        <AddTask addTask={handleAddTask} />
+        <TaskList tasks={taskList} />
       </div>
     </div>
   );
